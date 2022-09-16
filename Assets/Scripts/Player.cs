@@ -38,11 +38,13 @@ public class Player : MonoBehaviour
     [SerializeField] int MAX_HEALTH;
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] Transform bulletPos;
     public float health;
     float knifeTime = 0;
     float bulletTime = 0;
     float direction = 0;
     State state = State.ALIVE;
+    public int score;
     [SerializeField] Weapon weapon = Weapon.KNIFE;
 
     // Start is called before the first frame update
@@ -50,6 +52,7 @@ public class Player : MonoBehaviour
     {
         health = MAX_HEALTH;
         rbody = GetComponent<Rigidbody2D>();
+        score = 0;
     }
 
     // Update is called once per frame
@@ -153,7 +156,7 @@ public class Player : MonoBehaviour
     void FireBullet(){
         Vector2 v = new Vector2(Mathf.Cos(Mathf.Deg2Rad*(direction+90)), Mathf.Sin(Mathf.Deg2Rad*(direction+90)));
         v = v*BULLET_VELOCITY;
-        GameObject bulletG = Instantiate(bullet, transform.position, Quaternion.identity);
+        GameObject bulletG = Instantiate(bullet, bulletPos.position, Quaternion.identity);
         bulletG.GetComponent<Rigidbody2D>().rotation = direction;
         bulletG.GetComponent<Rigidbody2D>().velocity = v;
     }
@@ -168,6 +171,12 @@ public class Player : MonoBehaviour
             BulletHit();
         } else if (collision.gameObject.tag == "Enemy"){
             BulletHit();
+        } else if (collision.gameObject.tag == "Coin"){
+            score += 10;
+            scoreText.text = score + "";
+            Destroy(collision.gameObject);
+        } else if (collision.gameObject.tag == "Crate"){
+            Win();
         }
     }
 
@@ -175,5 +184,14 @@ public class Player : MonoBehaviour
         health -= 4;
         healthText.text = health+"";
         Debug.Log("Bullet Hit");
+    }
+
+    public void EnemyKilled(){
+        score += 10;
+        scoreText.text = score + "";
+    }
+
+    void Win(){
+        SceneManager.LoadScene("VictoryScene");
     }
 }

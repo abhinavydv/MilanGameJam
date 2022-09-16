@@ -8,6 +8,8 @@ TagManager:
   - Knife
   - EnemyBullet
   - Enemy
+  - Coin
+  - Crate
   layers:
   - Default
   - TransparentFX

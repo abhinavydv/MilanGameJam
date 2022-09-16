@@ -24,7 +24,7 @@ public class FieldOfView : MonoBehaviour
         ai.isChasing = playerInRange;
         RaycastHit2D hitInfo = Physics2D.Raycast(firePosition.position, transform.right, checkDistance);
 
-        if (hitInfo.collider && (hitInfo.collider.gameObject.tag != "EnemyBullet" && hitInfo.collider.gameObject.tag != "Bullet")) {
+        if (hitInfo.collider) {
             line.SetPosition(1, hitInfo.point);
             if (hitInfo.collider.tag == "Player")
                 playerInRange = true;

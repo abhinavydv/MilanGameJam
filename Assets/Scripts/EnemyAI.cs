@@ -6,6 +6,7 @@ public class EnemyAI : MonoBehaviour
 {
     public float speed;
     public bool isChasing;
+    public Player player;
     public float stoppingDistance;
     public float retreatDistance;
 
@@ -20,6 +21,8 @@ public class EnemyAI : MonoBehaviour
     public Transform target;
     public GameObject bullet;
     float epsilon = 0.2f;
+    public int health;
+    [SerializeField] int MAX_HEALTH;
 
     Rigidbody2D rb;
     Vector2 movement;
@@ -32,6 +35,7 @@ public class EnemyAI : MonoBehaviour
         countdown = cooldown;
         patrolCountdown = patrolCooldown;
         randomSpot = Random.Range(0, moveSpots.Length);
+        health = MAX_HEALTH;
     }   
 
     // Update is called once per frame
@@ -67,8 +71,9 @@ public class EnemyAI : MonoBehaviour
     {
         if (Vector2.Distance(transform.position, target.position) > stoppingDistance) 
             rb.MovePosition((Vector2)transform.position + (dir * speed * Time.deltaTime)); 
-        else if (Vector2.Distance(transform.position, target.position) < stoppingDistance) 
+        else if (Vector2.Distance(transform.position, target.position) < retreatDistance) 
             rb.MovePosition((Vector2)transform.position - (dir * speed * Time.deltaTime)); 
+        Shoot();
     }
 
     void Shoot()
@@ -76,6 +81,7 @@ public class EnemyAI : MonoBehaviour
         if (countdown <= 0) {
             Instantiate(bullet, transform.position, Quaternion.identity);
             countdown = cooldown;
+            Debug.Log("Instantiate");
         }
     }
 
@@ -91,5 +97,20 @@ public class EnemyAI : MonoBehaviour
                 patrolCountdown -= Time.deltaTime;
             }
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision){
+        if (collision.gameObject.tag == "Bullet"){
+            health -= 10;
+            Destroy(collision.gameObject);
+        } else if (collision.gameObject.tag == "Knife"){
+            health -= 30;
+            Destroy(collision.gameObject);
+        }
+        if (health <= 0){
+            Destroy(gameObject);
+            player.EnemyKilled();
+        }
+
     }
 }
