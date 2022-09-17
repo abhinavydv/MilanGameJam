@@ -16,3 +16,15 @@ The goal of the game is to reach the treasure at the end of the map. However, it
 - Extract the zip file at some location
 - Run MilanGameJam.exe
 - Enjoy!!
+
+### Credits
+
+Assets used:
+- Protagonist: https://www.pinterest.com/pin/483503709987070585/
+- Gold coins: https://www.pngall.com/gold-coin-png/download/40182
+- Treasure chest: https://www.pinterest.com/pin/treasure-chest--352828952031237121/
+- Barrel: https://stock.adobe.com/in/images/top-view-of-wooden-barrel-sketch-style-vector-illustrations-isolated-on-white-background-wine-rum-beer-classical-wooden-barrel-hand-drawn-vector-illustration-top-view/123624672
+- Desert background: https://stock.adobe.com/images/road-in-the-desert-top-view/299294213?as_campaign=ftmigration2&as_channel=dpcft&as_campclass=brand&as_source=ft_web&as_camptype=acquisition&as_audience=users&as_content=closure_asset-detail-page
+- Heart: https://clipart.info/red-heart-png-clipart-8171
+- Crate: Canva (https://www.canva.com)
+- Fonts: Canva (https://www.canva.com)
